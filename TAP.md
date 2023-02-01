@@ -128,7 +128,7 @@ tanzu apps workload apply wordcloud \
     --type web \
     --label app.kubernetes.io/part-of=wordcloud \
     --label apis.apps.tanzu.vmware.com/register-api=true \
-    --label apps.tanzu.vmware.com/has-tests: "true" \
+    --label apps.tanzu.vmware.com/has-tests=true \
     --param-yaml api_descriptor='{"description":"Twitter Wordcloud","location":{"path":"/v3/api-docs"},"owner":"demo","system":"dev","type":"openapi"}' \
     --service-ref "sso=${RESOURCE_CLAIM}:sso-claim" \
     --service-ref "postgres=${RESOURCE_CLAIM}:postgres-claim" \
@@ -152,7 +152,7 @@ RESOURCE_CLAIM="services.apps.tanzu.vmware.com/v1alpha1:ResourceClaim"
 tanzu apps workload apply twitter-api-client \
     --type server \
     --label app.kubernetes.io/part-of=twitter-demo \
-    --label apps.tanzu.vmware.com/has-tests: "true" \
+    --label apps.tanzu.vmware.com/has-tests=true \
     --service-ref "rabbitmq=${RESOURCE_CLAIM}:rmq-claim" \
     --service-ref "twitter=${RESOURCE_CLAIM}:twitter-claim" \
     --service-ref "wavefront=${RESOURCE_CLAIM}:wavefront-claim" \
