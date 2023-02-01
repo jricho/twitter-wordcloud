@@ -128,6 +128,7 @@ tanzu apps workload apply wordcloud \
     --type web \
     --label app.kubernetes.io/part-of=wordcloud \
     --label apis.apps.tanzu.vmware.com/register-api=true \
+    --label apps.tanzu.vmware.com/has-tests: "true" \
     --param-yaml api_descriptor='{"description":"Twitter Wordcloud","location":{"path":"/v3/api-docs"},"owner":"demo","system":"dev","type":"openapi"}' \
     --service-ref "sso=${RESOURCE_CLAIM}:sso-claim" \
     --service-ref "postgres=${RESOURCE_CLAIM}:postgres-claim" \
@@ -140,7 +141,7 @@ tanzu apps workload apply wordcloud \
     --env "SERVICE_NAME=mvc" \
     --env "JAVA_TOOL_OPTIONS=-Dmanagement.health.probes.enabled='false'" \
     --annotation autoscaling.knative.dev/minScale=1 \
-    --git-repo https://github.com/mhoshi-vm/twitter-wordcloud \
+    --git-repo https://github.com/jricho/twitter-wordcloud \
     --git-branch springboot2
 ```
 
@@ -151,6 +152,7 @@ RESOURCE_CLAIM="services.apps.tanzu.vmware.com/v1alpha1:ResourceClaim"
 tanzu apps workload apply twitter-api-client \
     --type server \
     --label app.kubernetes.io/part-of=twitter-demo \
+    --label apps.tanzu.vmware.com/has-tests: "true" \
     --service-ref "rabbitmq=${RESOURCE_CLAIM}:rmq-claim" \
     --service-ref "twitter=${RESOURCE_CLAIM}:twitter-claim" \
     --service-ref "wavefront=${RESOURCE_CLAIM}:wavefront-claim" \
@@ -158,6 +160,6 @@ tanzu apps workload apply twitter-api-client \
     --build-env BP_MAVEN_BUILD_ARGUMENTS="-pl wordcloud -am -P twitterapiclient package" \
     --env "SERVICE_NAME=twitterclient" \
     --env "JAVA_TOOL_OPTIONS=-Dmanagement.health.probes.enabled='false'" \
-    --git-repo https://github.com/mhoshi-vm/twitter-wordcloud \
+    --git-repo https://github.com/jricho/twitter-wordcloud \
     --git-branch springboot2
 ```
